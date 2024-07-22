@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    main{
+      max-width: 40rem;
+      background-color: rgb(213, 216, 216);
+      margin: 5rem auto;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 1rem;
+      border: .13rem solid rgba(181, 186, 190,.5);
+      
+    }
+    h1{
+      background-color: rgb(181, 186, 190);
+      padding: .5rem 2rem;
+      border-radius: 1rem;
+      width: 80%;
+      text-align: center;
+      color: rgb(59, 61, 63);
+
+    }
+    .game_equip{
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+
+
+      & img{
+        padding: 1rem;
+      border-radius: 1rem;
+      transition: .2s;
+        width: 20%;
+
+        &:hover{
+          background-color: rgb(181, 186, 190);
+          cursor: pointer;
+          transform: scale(1.05);
+
+        }
+      }
+    }
+    button{
+      border-radius: .2rem;
+      cursor: pointer;
+     padding: .5rem 2rem;
+      border: none;
+      background-color: rgb(181, 186, 190);
+      color: rgb(59, 61, 63);
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-block: 1rem;
+      transition: .3s;
+
+
+      &:hover{
+        letter-spacing: .1rem;
+      }
+
+    }
+    .hideBtn{
+      display: none;
+      transition: .3s;
+    }
+
+    @media screen and (max-width:786px) {
+      
+    }
+  </style>
+</head>
+<body>
+  
+
+  <main>
+    <h1>Cricket Game</h1>
+    <div class="game_equip">
+      <img onclick="
+        youClick='Bat';
+        randomNumber=Math.random()*3;
+        secondFunction();
+        resultShow.innerHTML=codeRESULT;
+       
+        " src="img/pngegg (15).png"  alt="">
+
+      <img onclick="
+      youClick='Ball';
+      randomNumber=Math.random()*3;
+      secondFunction();
+      resultShow.innerHTML=codeRESULT;
+     
+      "  
+      src="img/pngegg (16).png"  alt="">
+
+      <img onclick="
+      youClick='Stump';
+      randomNumber=Math.random()*3;
+      secondFunction();
+      resultShow.innerHTML=codeRESULT;
+     
+      " 
+       src="img/pngegg (17).png"  alt="">
+    </div>
+    <p id="resultShow">Select Any One  👆</p>
+    <button  onclick="
+    historyHide.classList.toggle('hideBtn')
+    ">history check</button>
+    <div id="historyHide" class="history hideBtn">
+      <h1 >Game history</h1>
+      <p id="gameHistoty"></p>
+    </div>
+  </main>
+
+  <script>
+    let resultShow=document.getElementById('resultShow');
+    let gameHistoty=document.getElementById('gameHistoty');
+    let historyHide=document.getElementById('historyHide');
+    let youClick;
+    let randomNumber=Math.random()*3;
+    let computer;
+    let codeRESULT;
+    let locaMA =localStorage.getItem('Score')
+ 
+    let score= JSON.parse(locaMA)||{
+      win:0,
+      loss:0,
+    }
+    function firstFunction(){
+      if(randomNumber>0 && randomNumber<=1){
+        computer="Bat"
+
+      }else  if(randomNumber>1 && randomNumber<=2){
+        computer="Ball"
+      }else{
+        computer="Stump"
+      }
+      return computer;
+    }
+
+    function secondFunction(){
+      localStorage.setItem('score',JSON.stringify(score))
+    if(firstFunction()===youClick){
+      codeRESULT=`<p>WIN 😍</p> You choose (${youClick}) vs (${firstFunction()}) Computer choose`;
+     score.win++
+     localStorage.setItem('score',`won ${score.win} ,loss ${score.loss} `)
+     gameHistoty.innerHTML=`won ${score.win} ,loss ${score.loss}`
+    }else{
+      
+
+      codeRESULT=`<p> Sorry 😢 </p> You choose (${youClick}) vs (${firstFunction()}) Computer choose`
+      score.loss++
+      // console.log( score.loss++)
+      
+      // if(locaMA===undefined){
+      //   locaMA= localStorage.setItem('score',`won ${score.win} ,loss ${score.loss} `)
+      // }else{
+        
+      // }
+
+      gameHistoty.innerHTML=`won ${score.win} ,loss ${score.loss}`
+
+     
+     
+
+    }
+      return codeRESULT;
+    }
+   
+
+  </script>
+</body>
+</html>
